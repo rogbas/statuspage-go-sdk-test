@@ -11,14 +11,19 @@ import (
 
 func main() {
 
-	spAPI := sp.NewStatusioApi(config.ApiId, config.ApiKey)
+	spAPI := sp.NewStatusioApi(config.OrgId, config.ApiKey)
 
-	statusSummary, err := spAPI.StatusSummary(config.PageId)
+	// statusSummary, err := spAPI.StatusSummary(config.PageId)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+
+	incList, err := spAPI.IncidentList(config.PageId)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	fmt.Println(statusSummary.Result.Status[0].Containers[0].Status)
+	fmt.Println("Incidents: %#v", incList.Result.ActiveIncidents)
 
 	os.Exit(0)
 }
